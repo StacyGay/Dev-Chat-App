@@ -56,7 +56,6 @@ export default class Messages extends React.Component<MessageProps, MessageState
         const {isLoading, error, errorMessage, data, messages} = this.state;
         return (
             <div>
-                <p>{JSON.stringify(data)}</p>
                 {isLoading && <div>Loading...</div>}
                 {isLoading && error && <div>Error {errorMessage}</div>}
                 {!isLoading && !error && 

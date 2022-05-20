@@ -18,6 +18,10 @@ const subreddits = [
     "technology",
     "webdev",
     "askprogramming",
+    "startups",
+    "cscareerquestions",
+    "telecommuting",
+    "cstheory",
 ];
 
 interface RedditData {
