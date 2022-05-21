@@ -40,7 +40,7 @@ export class Messages extends React.Component<MessageProps, MessageState> {
         if (!this._messageStreamSet) {
             this.setRandomInterval(() => {
                 this.getMessage();
-            }, 500, 5000);
+            }, 100, 7000);
             this._messageStreamSet = true;
         }
 
@@ -126,6 +126,7 @@ export class Messages extends React.Component<MessageProps, MessageState> {
                 <div className={styles.inputArea}>
                     {/* <input value={this.input} onInput={e => this.setInput(e.target)} /> */}
                     <input value={this.input} />
+                    <button>+</button>
                 </div>
             </div>            
         );
