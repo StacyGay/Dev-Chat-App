@@ -47,6 +47,7 @@ export interface MessageResult {
     message: string;
     ups?: number;
     downs?: number;
+    me?: boolean;
 }
 
 @injectable()

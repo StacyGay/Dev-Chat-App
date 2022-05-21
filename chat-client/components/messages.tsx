@@ -1,5 +1,5 @@
 import { container } from "infrastructure";
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import { MessageService, MessageResult } from "services";
 import styles from 'styles/messages.module.scss'
 
@@ -13,15 +13,19 @@ type MessageState = {
     messages: MessageResult[];
     error: boolean;
     errorMessage?: string;
+    inputValue?: string;
 }
 
-export default class MessagesIndex extends React.Component<MessageProps, MessageState> {
+export class Messages extends React.Component<MessageProps, MessageState> {
     messageService: MessageService = container.get(MessageService);
     state: MessageState = {
         isLoading: true,
         error: false,
         messages: [],
+        inputValue: "",
     };
+
+    input: string ="";
 
     messagesContainerRef: React.MutableRefObject<HTMLDivElement>;
     private _messageStreamSet: boolean;
@@ -92,6 +96,10 @@ export default class MessagesIndex extends React.Component<MessageProps, Message
     //     return {};
     // }
 
+    setInput(val: string): void {
+
+    }
+
     
     scrollToBottom(): void {
         this.messagesContainerRef!.current!.scrollTop = this.messagesContainerRef!.current!.scrollHeight;
@@ -100,20 +108,26 @@ export default class MessagesIndex extends React.Component<MessageProps, Message
     render(): JSX.Element {
         const {isLoading, error, errorMessage, data, messages} = this.state;
         return (
-            <div id={'messagesContainer'} ref={this.messagesContainerRef} className={styles.messagesContainer}>
-                {isLoading && <div>Loading...</div>}
-                {isLoading && error && <div>Error {errorMessage}</div>}
-                {!isLoading && !error && 
-                    messages.map(m => (
-                        <div className={styles.messageCard}>
-                            <h2 className={styles.messageAuthor}>{m.author}:</h2>
-                            <p className={styles.messageBody}>
-                                {m.message || m.title}
-                            </p>
-                        </div>
-                    ))
-                }
-            </div>
+            <div>
+                <div id={'messagesContainer'} ref={this.messagesContainerRef} className={styles.messagesContainer}>
+                    {isLoading && <div>Loading...</div>}
+                    {isLoading && error && <div>Error {errorMessage}</div>}
+                    {!isLoading && !error && 
+                        messages.map(m => (
+                            <div className={styles.messageCard}>
+                                <h2 className={styles.messageAuthor}>{m.author}:</h2>
+                                <p className={styles.messageBody}>
+                                    {m.message || m.title}
+                                </p>
+                            </div>
+                        ))
+                    }
+                </div>
+                <div className={styles.inputArea}>
+                    {/* <input value={this.input} onInput={e => this.setInput(e.target)} /> */}
+                    <input value={this.input} />
+                </div>
+            </div>            
         );
     }
 }
