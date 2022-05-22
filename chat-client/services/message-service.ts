@@ -1,5 +1,6 @@
 import { container } from "infrastructure";
 import { injectable } from "inversify";
+import { StringUtils } from "utilities";
 
 const subreddits = [
     "experienceddevs",
@@ -43,7 +44,7 @@ interface RedditObjectData {
 
 export interface MessageResult {
     author: string;
-    title: string;
+    title?: string;
     message: string;
     ups?: number;
     downs?: number;
@@ -52,11 +53,27 @@ export interface MessageResult {
 
 @injectable()
 export class MessageService {
+    _id = StringUtils.newGuid();
+    messageQueue: MessageResult[] = [];
+
     getMessageList(): string[] {
         return ["test1", "test2", "test3"];
     }
 
-    async getRandom(): Promise<MessageResult> {
+    addMessage(message: MessageResult): void {
+        if (!message) return;
+        this.messageQueue.push(message);
+    }
+
+    async getMessage(): Promise<MessageResult> {
+        if (this.messageQueue.length > 0) {
+            return this.messageQueue.pop();
+        }
+
+        return await this.getRemote();
+    }
+
+    async getRemote(): Promise<MessageResult> {
         let subreddit = this.getRandomArrayValue(subreddits);
         let postResponse = await fetch(`https://www.reddit.com/r/${subreddit}/.json`);
         let postData = (<RedditData>(await postResponse.json())).data;

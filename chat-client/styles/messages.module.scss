@@ -5,7 +5,7 @@
     position: absolute;
     bottom: 1em;
     left: 1em;
-    width: 65%;
+    width: 97%;
 
     input {
         border-radius: 2em;
@@ -54,6 +54,10 @@
         opacity: 0;
         animation-name: fadeInUp;
         -webkit-animation-name: fadeInUp;
+
+        &.me {
+            float: right;
+        }
     
         .messageAuthor {
             font-weight: bold;

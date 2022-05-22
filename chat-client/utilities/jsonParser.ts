@@ -1,4 +1,3 @@
-import { container } from "infrastructure";
 import { injectable } from "inversify";
 import { DateUtils } from "./DateUtils";
 
@@ -35,5 +34,3 @@ export class JsonParser {
         return instance;
     }
 }
-
-container.bind<JsonParser>(JsonParser).toSelf();

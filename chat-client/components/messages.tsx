@@ -2,6 +2,7 @@ import { container } from "infrastructure";
 import React from "react";
 import { MessageService, MessageResult } from "services";
 import styles from 'styles/messages.module.scss'
+import { NewMessage } from "./newMessage";
 
 type MessageProps = {
     message?: MessageResult;
@@ -24,8 +25,6 @@ export class Messages extends React.Component<MessageProps, MessageState> {
         messages: [],
         inputValue: "",
     };
-
-    input: string ="";
 
     messagesContainerRef: React.MutableRefObject<HTMLDivElement>;
     private _messageStreamSet: boolean;
@@ -74,7 +73,7 @@ export class Messages extends React.Component<MessageProps, MessageState> {
 
     async getMessage(): Promise<void> {
         try {
-            let task = this.messageService.getRandom();
+            let task = this.messageService.getMessage();
             let message = await task;
             this.setState(previousState => ({
                 isLoading: false,
@@ -84,6 +83,7 @@ export class Messages extends React.Component<MessageProps, MessageState> {
                     : [message]
             }));
         } catch (ex) {
+            console.log("error getting message", ex);
             this.setState({
                 isLoading: false,
                 error: true,
@@ -114,7 +114,8 @@ export class Messages extends React.Component<MessageProps, MessageState> {
                     {isLoading && error && <div>Error {errorMessage}</div>}
                     {!isLoading && !error && 
                         messages.map(m => (
-                            <div className={styles.messageCard}>
+                            <div className={styles.messageCard} 
+                                style={{ marginLeft: m.me ? '30%' : '1em', border: m.me ? '1px solid rgba(27, 185, 106, 0.75)' : 'none'}}>
                                 <h2 className={styles.messageAuthor}>{m.author}:</h2>
                                 <p className={styles.messageBody}>
                                     {m.message || m.title}
@@ -123,11 +124,7 @@ export class Messages extends React.Component<MessageProps, MessageState> {
                         ))
                     }
                 </div>
-                <div className={styles.inputArea}>
-                    {/* <input value={this.input} onInput={e => this.setInput(e.target)} /> */}
-                    <input value={this.input} />
-                    <button>+</button>
-                </div>
+                <NewMessage></NewMessage>
             </div>            
         );
     }

@@ -70,7 +70,7 @@ export default class MessagesIndex extends React.Component<MessageProps, Message
 
     async getMessage(): Promise<void> {
         try {
-            let task = this.messageService.getRandom();
+            let task = this.messageService.getMessage();
             let message = await task;
             this.setState(previousState => ({
                 isLoading: false,

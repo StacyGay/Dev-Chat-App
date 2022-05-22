@@ -24,7 +24,7 @@ const Home: NextPage = () => {
 
         <main className={styles.main}>
             <h1 className={styles.title}>
-            Dev Chat
+            Dev Chat Simulator
             </h1>
 
             <Messages></Messages>
