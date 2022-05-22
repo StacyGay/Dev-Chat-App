@@ -36,6 +36,7 @@ export class NewMessage extends React.Component<NewMessageProps, NewMessageState
         if (!message) return;
 
         this.messageService.addMessage({
+            id: StringUtils.newGuid(),
             author: "Me",
             message: this.state.input,
             me: true,

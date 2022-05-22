@@ -1,5 +1,3 @@
-import {AnimationUtils} from "./AnimationUtils";
-
 export class ElementUtils {
     static getCoords(el: Element): { top: number, left: number } {
         var box = el.getBoundingClientRect();
@@ -54,32 +52,5 @@ export class ElementUtils {
         );
     }
 
-    static scrollTo(element: HTMLElement, to: number, duration: number): Promise<any> {
-        if (duration <= 0) return;
-
-        var startTime = new Date().getTime();
-        var from = element.scrollTop;
-
-        return new Promise<any>((resolve, reject) => {
-            var timer = setInterval(() => {
-                var time = new Date().getTime() - startTime;
-                var scrollTo = AnimationUtils.easeInOutQuart(time, from, to-from, duration);
-                element.scrollTop = scrollTo;
-                if(time >= duration) {
-                    element.scrollTop = to;
-                    clearInterval(timer);
-                    resolve();
-                }
-            }, 1000 / 60);
-        });
-    }
-
-    static scrollDocumentTo(to: number, duration: number): Promise<any> {
-        return ElementUtils.scrollTo(document.querySelector('body'), to, duration);
-    }
-
-    static scrollDocumentToElement(element: HTMLElement, duration: number): Promise<any> {
-        var target = ElementUtils.getCoords(element);
-        return ElementUtils.scrollDocumentTo(target.top, duration);
-    }
+    
 }

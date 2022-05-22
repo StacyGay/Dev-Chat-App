@@ -43,6 +43,7 @@ interface RedditObjectData {
 }
 
 export interface MessageResult {
+    id: string;
     author: string;
     title?: string;
     message: string;
@@ -62,6 +63,7 @@ export class MessageService {
 
     addMessage(message: MessageResult): void {
         if (!message) return;
+        message.id = StringUtils.newGuid();
         this.messageQueue.push(message);
     }
 
@@ -84,6 +86,7 @@ export class MessageService {
         let comment = this.getRandomArrayValue(commentData).data.children[0].data;
 
         return {
+            id: StringUtils.newGuid(),
             author: comment.author,
             title: comment.title,
             message: comment.body,

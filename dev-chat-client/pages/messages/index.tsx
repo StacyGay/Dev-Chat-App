@@ -105,7 +105,7 @@ export default class MessagesIndex extends React.Component<MessageProps, Message
                 {isLoading && error && <div>Error {errorMessage}</div>}
                 {!isLoading && !error && 
                     messages.map(m => (
-                        <div className={styles.messageCard}>
+                        <div key={m.id} className={styles.messageCard}>
                             <h2 className={styles.messageAuthor}>{m.author}:</h2>
                             <p className={styles.messageBody}>
                                 {m.message || m.title}

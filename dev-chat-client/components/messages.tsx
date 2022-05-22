@@ -114,7 +114,7 @@ export class Messages extends React.Component<MessageProps, MessageState> {
                     {isLoading && error && <div>Error {errorMessage}</div>}
                     {!isLoading && !error && 
                         messages.map(m => (
-                            <div className={styles.messageCard} 
+                            <div key={m.id} className={styles.messageCard} 
                                 style={{ marginLeft: m.me ? '30%' : '1em', border: m.me ? '1px solid rgba(27, 185, 106, 0.75)' : 'none'}}>
                                 <h2 className={styles.messageAuthor}>{m.author}:</h2>
                                 <p className={styles.messageBody}>

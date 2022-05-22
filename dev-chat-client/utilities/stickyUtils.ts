@@ -13,7 +13,7 @@ export class StickyUtils {
 
         nodeOffs += parentEl.offsetTop;
 
-        return (event) => {
+        return (event: any) => {
             if (window.innerWidth <= stopWidth) {
                 stickyEl.style.top = '0px';
                 return;
