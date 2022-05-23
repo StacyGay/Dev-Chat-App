@@ -9,10 +9,10 @@
     font-size: 3rem;
     color: rgba(255, 255, 255, 90%);
 
-        a {
-            color: #0070f3;
-            text-decoration: none;
-        }
+    @media only screen and (max-width: 600px) {
+        font-size: 2rem;
+    }
+      
     }
   
   .title a:hover,
