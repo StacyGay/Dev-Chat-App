@@ -28,7 +28,12 @@ export class NewMessage extends React.Component<NewMessageProps, NewMessageState
     }
 
     handleKeyboard = (e: React.KeyboardEvent): void => {
-        if (e.key != 'Enter') return;
+        if (e.key != 'Enter' || !this.state.input) return;
+        this.createNewMessage(this.state.input);
+    }
+
+    handleButton = (): void => {
+        if (!this.state.input) return;
         this.createNewMessage(this.state.input);
     }
 
@@ -50,7 +55,8 @@ export class NewMessage extends React.Component<NewMessageProps, NewMessageState
 
         return <div className={styles.inputArea}>
             {/* <input value={this.input} onInput={e => this.setInput(e.target)} /> */}
-            <input value={input} onChange={this.handleChange} onKeyPress={this.handleKeyboard} />
+            <input value={input} onChange={this.handleChange} onKeyPress={this.handleKeyboard}
+                onClick={this.handleButton} />
             <button>+</button>
         </div>
     }
