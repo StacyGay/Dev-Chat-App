@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "export": "npm run build && next export -o _static",
-    "static": "next build && next export && touch ./_static/.nojekyll && echo 'stacygay.com' > ./_static/CNAME"
+    "static": "npm run export && touch ./_static/.nojekyll && echo 'stacygay.com' > ./_static/CNAME"
   },
   "dependencies": {
     "next": "12.1.6",
